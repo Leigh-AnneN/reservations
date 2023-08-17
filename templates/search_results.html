@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+
+<h1>Search Results</h1>
+ <!-- Show search results  -->
+ <ul>
+    {% for result in searchResults %}
+      <li>
+        <a href="/{{ result.id }}/">{{ result.fullName }}</a>
+        <p>Phone: {{ result.phone }}</p>
+       
+      </li>
+    {% endfor %}
+  </ul>
+  {% endblock %}
