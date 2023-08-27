@@ -4,11 +4,9 @@
 
 <h1>Top Customers</h1>
 <ul>
-  {% for customer in topCustomers %}
-    <li><a href="/{{ customer.id }}/">{{ customer.fullName }} (Reservations: {{ customer.num_reservations }})</a></li>
+  {% for customer in topCustomers %} 
+    <li><a href="/{{ customer.id }}/">{{ customer.firstName }} {{ customer.lastName }} (Reservations: {{ customer.numReservations }})</a></li>
   {% endfor %}
 </ul>
 
 {% endblock %}
-
-

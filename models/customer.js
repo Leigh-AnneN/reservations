@@ -34,8 +34,25 @@ class Customer {
     return this._phone;
   }
 
+  // set firstName (val) {
+  //   this._firstName = val || null;
+  // }
+  
+  // get firstName () {
+  //   return this._firstName;
+  // }
+
+  // set lastName (val) {
+  //   this._lastName = val || null;
+  // }
+
+  // get lastName () {
+  //   return this._lastName;
+  // }
+
   /** find all customers. */
 
+  
   static async all() {
     const results = await db.query(
       `SELECT id, 
@@ -49,13 +66,14 @@ class Customer {
     return results.rows.map(c => new Customer(c));
   }
 
+
   /**get top ten customers by reservation count */
 static async getTopTenCustomers() {
   const results = await db.query(
     `SELECT customers.id, 
-            customers.first_name, 
-            customers.last_name, 
-            COUNT(reservations.id) AS num_reservations
+            customers.first_name AS "firstName", 
+            customers.last_name AS "lastName", 
+            COUNT(reservations.id) AS "num_reservations"
     FROM customers
     JOIN reservations ON customers.id = reservations.customer_id
     GROUP BY customers.id
