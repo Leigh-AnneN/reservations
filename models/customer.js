@@ -12,6 +12,7 @@ class Customer {
     this.lastName = lastName;
     this.phone = phone;
     this.notes = notes;
+    
   }
 
   /** methods for getting/setting notes (keep as empty string, not NULL)  */
@@ -75,13 +76,22 @@ static async getTopTenCustomers() {
             customers.last_name AS "lastName", 
             COUNT(reservations.id) AS "num_reservations"
     FROM customers
-    JOIN reservations ON customers.id = reservations.customer_id
+    RIGHT JOIN reservations ON customers.id = reservations.customer_id
     GROUP BY customers.id
     ORDER BY num_reservations DESC
     LIMIT 10`
   );
-  return results.rows.map(c => new Customer(c));
+  // return results.rows.map(c => new Customer(c));
+  return results.rows.map(row => ({
+    id: row.id,
+    firstName: row.firstName,
+    lastName: row.lastName,
+    num_reservations: parseInt(row.num_reservations) || 0, // Ensure num_reservations is a number
+  }));
+
 }
+
+
 
     /**search for a customer */
     static async search(searchTerm) {
